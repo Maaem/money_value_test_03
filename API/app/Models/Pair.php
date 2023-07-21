@@ -4,23 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Pair extends Model
+
+
+class Paire extends Model
 {
-    protected $fillable = ['source_currency_id', 'target_currency_id', 'exchange_rate', 'conversion_count'];
+    use HasFactory;
 
-    public function sourceCurrency()
+    public function deviseFrom(): BelongsTo
     {
-        return $this->belongsTo(Currency::class, 'source_currency_id');
+        return $this->belongsTo(Devise::class, "from", "name");
     }
 
-    public function targetCurrency()
+    public function deviseTo(): BelongsTo
     {
-        return $this->belongsTo(Currency::class, 'target_currency_id');
-    }
-
-    public function conversions()
-    {
-        return $this->hasMany(Conversion::class, 'pair_id', 'id');
+        return $this->belongsTo(Devise::class, "to", "name");
     }
 }

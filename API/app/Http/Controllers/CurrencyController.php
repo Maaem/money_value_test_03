@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CurrencyCollection;
+use App\Models\Paire;
 use Illuminate\Http\Request;
-use App\Models\Currency;
+use Illuminate\Support\Facades\Response;
 
-class CurrencyController extends Controller
+class ApiPublicAvailbleDevises extends Controller
 {
-    public function index()
+    public function available()
     {
-        $currencies = Currency::all();
-        return response()->json($currencies);
+        return new CurrencyCollection(Paire::all(['from', "to"]));
     }
 
-    // taux de conversion euro-dollar (à titre d'exemple)
-    const TAUX_CONVERSION = 1.13;
-
-    public function euroToDollar(Request $request)
+    public function conversion(Request $request, string $from, string $amount, string $to)
     {
-        $montant_euro = $request->input('montant');
-        $montant_dollar = $montant_euro * self::TAUX_CONVERSION;
-        return response()->json(['montant_dollar' => $montant_dollar]);
+        $paire = Paire::where([["from", $from], ["to", $to]])->first();
+        if ($paire == null) {
+            return Response::json(["message" => "Désole, cette paire de conversion n'existe pas.", "status" => \Illuminate\Http\Response::HTTP_NOT_FOUND]);
+        }
+
+        $newAmonut = $this->getNewConvertedAmount($paire->conversion_rate, $amount);
+        return Response::json(["from" => $from, "to" => $to, "convertedAmount" => $newAmonut], \Illuminate\Http\Response::HTTP_OK);
     }
 
-    public function dollarToEuro(Request $request)
+    private function getNewConvertedAmount(string $conversionRate, string $toBeConverted): int
     {
-        $montant_dollar = $request->input('montant');
-        $montant_euro = $montant_dollar / self::TAUX_CONVERSION;
-        return response()->json(['montant_euro' => $montant_euro]);
+
+        return $conversionRate * $toBeConverted;
     }
 }
-

@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
 {
-    // Méthode pour la déconnexion
-    public function logout(Request $request)
+    public function index(Request $request)
     {
-        // Déconnectez l'utilisateur actuellement connecté
-        Auth::logout();
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
 
-        // Retournez la réponse JSON avec un message de succès
-        return response()->json(['message' => 'Logged out successfully']);
+        $request->session()->regenerateToken();
+        return response(['message' => "Utilisateur déconnecter", "status" => 200], 200);
     }
 }

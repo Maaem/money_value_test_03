@@ -4,19 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Currency extends Model
+class Devise extends Model
 {
     use HasFactory;
-    
-    protected $fillable = ['code'];
 
-    public function pairs()
+    public function paireFrom(): HasMany
     {
-        return $this->hasMany(Pair::class, 'source_currency_id', 'id');
+        return $this->hasMany(Paire::class, "from", "name");
+    }
+
+    public function paireTo(): HasMany
+    {
+        return $this->hasMany(Paire::class, "to", "name");
     }
 }
-
-
-
-
