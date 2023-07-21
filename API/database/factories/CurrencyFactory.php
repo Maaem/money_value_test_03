@@ -12,7 +12,7 @@ class CurrencyFactory extends Factory
     public function definition()
     {
         return [
-            'code' => $this->faker->currencyCode, // Utilise une valeur aléatoire de code de devise (par exemple "USD", "EUR", etc.)
+            'code' => $this->faker->currencyCode(), // Utilise une valeur aléatoire de code de devise (par exemple "USD", "EUR", etc.)
             'amount' => $this->faker->randomFloat(2, 0, 1000), // Utilise un montant aléatoire avec deux décimales
         ];
     }

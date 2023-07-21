@@ -15,9 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('currencie');
             $table->string('to_currencie');
-            $table->float('value');
-            $table->integer('conversion_count');
+
+
+
+            $table->float("conversion_rate", 8, 2, true);
+            $table->unsignedInteger("conversion_number");
             $table->timestamps();
+
         });
     }
 

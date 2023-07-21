@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
 
-class Paire extends Model
+class Pair extends Model
 {
     use HasFactory;
 
