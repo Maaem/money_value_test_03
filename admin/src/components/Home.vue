@@ -1,4 +1,4 @@
-<script>
+<script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ onMounted(async () => {
 
 <template>
   <div>
-    <h1>Home Component</h1>
+    <h1>Future doc </h1>
     <!-- Utilisez la variable réactive "user" dans votre template -->
     <pre>{{ user }}</pre>
   </div>

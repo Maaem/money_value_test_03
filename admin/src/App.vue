@@ -3,11 +3,14 @@ import Nav from './components/Nav.vue';
 </script>
 
 <template>
-
-  <main>
-    <Nav></Nav>
-    <RouterView />
-  </main>
+  <v-layout>
+    <header>
+      <Nav/>
+    </header>
+    <v-main>
+      <v-container> <router-view /> </v-container>
+    </v-main>
+  </v-layout>
 
 </template>
 

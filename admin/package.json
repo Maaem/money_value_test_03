@@ -14,7 +14,8 @@
     "flowbite-vue": "^0.0.16",
     "pinia": "^2.1.4",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.4"
+    "vue-router": "^4.2.4",
+    "vuetify": "^3.3.9"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
